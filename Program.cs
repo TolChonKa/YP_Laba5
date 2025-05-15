@@ -5,45 +5,35 @@ abstract class Worker
     protected string Name;
     protected static Worker head; // указатель на начало списка
     protected Worker next;
+    protected static Worker tail;
 
     public Worker(string name)
     {
         Name = name;
-        AddToList();
+        AddToList(this);
     }
 
-    protected void AddToList()
+    protected void AddToList(Worker node)
     {
+
         if (head == null)
         {
             head = this;
         }
         else
         {
-            Worker current = head;
-            while (current is not null)
-            {
-                if (current is Worker next && next.GetNext() == null)
-                {
-                    next.SetNext(this);
-                    break;
-                }
-                current = current.GetNext();
-            }
+            tail.next = node;
         }
+        tail = node;
     }
-
-    
     protected Worker GetNext() => next;
-    protected void SetNext(Worker worker) => next = worker;
-
     public static void Print()
     {
         Worker current = head;
         while (current != null)
         {
             current.Show();
-            current = current.GetNext();
+            current = current.next;
         }
     }
 
